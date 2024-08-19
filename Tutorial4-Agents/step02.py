@@ -1,4 +1,4 @@
-#DuckDuckGo
+#DuckDuckGo - DuckDuckGoSearchRun - it returns String only.
 from langchain_community.tools import DuckDuckGoSearchRun
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
