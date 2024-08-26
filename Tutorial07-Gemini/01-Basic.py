@@ -24,7 +24,3 @@ if st.button("Submit"):
     # print(answer)
     st.write("Your Answer:")
     st.write(answer.content+"\n")
-
-# #Example: Who is the prime minister of Uk? 
-# #Notes: the model is trained only upto Oct 2023
-# #ChatGPT4o is a program based on openai which is connected to internet
