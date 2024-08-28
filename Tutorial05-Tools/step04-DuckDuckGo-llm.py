@@ -7,29 +7,29 @@ import re
 
 # Load environment variables
 load_dotenv()
-#Applying filters
-wrapper= DuckDuckGoSearchAPIWrapper(region='in-in', max_results=3, safesearch='moderate')
-#source also referred to as 'backend'. The possible values are 'text' and 'news'
+# Applying filters
+wrapper = DuckDuckGoSearchAPIWrapper(
+    region="in-in", max_results=3, safesearch="moderate"
+)
+# source also referred to as 'backend'. The possible values are 'text' and 'news'
 # text: This is the default value and retrieves standard text-based search results.
-# news: This value fetches results specifically from news sources. 
-search = DuckDuckGoSearchResults(api_wrapper=wrapper, source='news')
-output = search.run('Latest news on Kartik Aaryan.')
+# news: This value fetches results specifically from news sources.
+search = DuckDuckGoSearchResults(api_wrapper=wrapper, source="news")
+output = search.run("Latest news on Kartik Aaryan.")
 
-#Extracting Values - Snippet, Title and Link
+
+# Extracting Values - Snippet, Title and Link
 def extract_info(output):
-    pattern = r'\[snippet: (.*?), title: (.*?), link: (.*?)\]'
+    pattern = r"\[snippet: (.*?), title: (.*?), link: (.*?)\]"
     matches = re.findall(pattern, output)
-    
+
     extracted_info = []
     for match in matches:
         snippet, title, link = match
-        extracted_info.append({
-            'snippet': snippet,
-            'title': title,
-            'link': link
-        })
-    
-    return extracted_info 
+        extracted_info.append({"snippet": snippet, "title": title, "link": link})
+
+    return extracted_info
+
 
 extracted_news = extract_info(output)
 
@@ -41,17 +41,13 @@ Details: {details}
 
 prompt_template = PromptTemplate(template=template)
 # Initialize the language model
-llm = ChatOpenAI(
-    model='gpt-4o',
-    max_tokens=500,
-    temperature=0.7
-)
+llm = ChatOpenAI(model="gpt-4o", max_tokens=500, temperature=0.7)
 
 # Create the LLM chain
 llm_chain = prompt_template | llm
 
-result =llm_chain.invoke({'details':extracted_news})
+result = llm_chain.invoke({"details": extracted_news})
 # print(result.content)
-with open('hindi-output.md', 'w', encoding='utf-8') as file:
+with open("hindi-output.md", "w", encoding="utf-8") as file:
     # Write data to the file
     file.write(result.content)

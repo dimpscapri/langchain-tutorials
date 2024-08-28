@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 from langchain_core.runnables import RunnableSequence
 
 load_dotenv()
-template="""
+template = """
     You are a travel expert with extensive knowledge of cities around the world. A user has provided the following preferences:
     
     Likes: {likes}
@@ -24,25 +24,23 @@ template="""
     Travel Dates: {travel_dates}
     
     Based on these preferences, the user would like to visit {city}. Please suggest 5 unique and interesting places to visit in {city}, including details about why each place matches the user's preferences.
-    """ 
+    """
 
 prompt_template = PromptTemplate(template=template)
 
-llm =  ChatOpenAI(
-    model='gpt-4o',
-    max_tokens=200,
-    temperature= 0.7
+llm = ChatOpenAI(model="gpt-4o", max_tokens=200, temperature=0.7)
+
+llm_chain = prompt_template | llm
+
+output = llm_chain.invoke(
+    {
+        "likes": input("Enter your likes: "),
+        "dislikes": input("Enter your dislikes: "),
+        "interests": input("Enter your interests: "),
+        "activity_types": input("Enter your preferred activity type: "),
+        "travel_dates": input("Enter travel dates: "),
+        "city": input("Enter preferred city or place: "),
+    }
 )
-
-llm_chain = prompt_template | llm 
-
-output = llm_chain.invoke({
-    "likes": input("Enter your likes: "),
-    "dislikes": input("Enter your dislikes: "),
-    "interests": input("Enter your interests: "),
-    "activity_types": input("Enter your preferred activity type: "),
-    "travel_dates": input("Enter travel dates: "),
-    "city": input("Enter preferred city or place: ")
-})
 
 print(output.content)

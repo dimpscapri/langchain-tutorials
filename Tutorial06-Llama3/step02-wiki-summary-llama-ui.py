@@ -1,4 +1,4 @@
-#pip install streamlit
+# pip install streamlit
 # Run the Streamlit app with the command streamlit run filename.py
 import streamlit as st
 from langchain_community.tools import WikipediaQueryRun
@@ -16,11 +16,11 @@ topic = st.text_input("Enter the topic you want to fetch:")
 if st.button("Fetch Facts"):
 
     # topic = input("Enter the topic you want to fetch: ")
-    output = wiki.invoke({'query':topic})
-    #wiki.invoke(topic) -- this is another way to invoke
+    output = wiki.invoke({"query": topic})
+    # wiki.invoke(topic) -- this is another way to invoke
     # print(output)
     #
-    #Integration with Llama 3.1
+    # Integration with Llama 3.1
     template = """
     Retrieve two fascinating and unique facts about {output} that will captivate the 
     reader's interest.
@@ -35,4 +35,4 @@ if st.button("Fetch Facts"):
     st.write("Here are the interesting facts:")
     st.write(response)
 
-#connect above to llm to fetch top 2 interesting facts about the output using llama and Google gemini
+# connect above to llm to fetch top 2 interesting facts about the output using llama and Google gemini

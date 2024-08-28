@@ -1,4 +1,4 @@
-#pip install wikipedia
+# pip install wikipedia
 from langchain_community.retrievers import WikipediaRetriever
 
 retriever = WikipediaRetriever()
@@ -9,4 +9,4 @@ docs = retriever.invoke(topic)
 
 for doc in docs:
     print(doc.page_content)
-#connect above to llm to fetch top 2 interesting facts about the output using llama and Google gemini
+# connect above to llm to fetch top 2 interesting facts about the output using llama and Google gemini

@@ -1,34 +1,36 @@
-#PROJECT - 01 SUGGEST BUSINESS NAMES
-#Program - Given the type of the business it will suggest creative business names
+# PROJECT - 01 SUGGEST BUSINESS NAMES
+# Program - Given the type of the business it will suggest creative business names
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.output_parsers import StrOutputParser
-from langchain.prompts import PromptTemplate  #import prompt template
+from langchain.prompts import PromptTemplate  # import prompt template
 import os
 
 load_dotenv()
-#print(os.environ["OPENAI_API_KEY"])
+# print(os.environ["OPENAI_API_KEY"])
 
-llm = ChatOpenAI(model="gpt-4o", temperature=0.7) #temprature means the creativity level [0-1] #0 means less creative and 1 means more creative default is 0.7
- 
-parser = StrOutputParser() #object of StrOutputParser
-#asking question
+llm = ChatOpenAI(
+    model="gpt-4o", temperature=0.7
+)  # temprature means the creativity level [0-1] #0 means less creative and 1 means more creative default is 0.7
 
-#Create Prompt Template
+parser = StrOutputParser()  # object of StrOutputParser
+# asking question
+
+# Create Prompt Template
 template = """
     You are an expert in suggesting creative business names given the business type. 
     Suggest 5 creative names for the business type {business_type}
 """
 prompt_template = PromptTemplate.from_template(template=template)
 while True:
-    business_type =input("Enter the type of your business/type bye to exit: ")
-    if business_type.lower() == 'bye':
+    business_type = input("Enter the type of your business/type bye to exit: ")
+    if business_type.lower() == "bye":
         print("Thanks!")
         break
     else:
         prompt = prompt_template.format(business_type=business_type)
         print(prompt)
-        answer = llm.invoke(prompt) #allows you to ask question from llm
+        answer = llm.invoke(prompt)  # allows you to ask question from llm
         # print(parser.invoke(answer))
         # print(answer)
         print(answer.content)

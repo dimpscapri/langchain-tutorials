@@ -7,25 +7,15 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-llm = ChatOpenAI(
-    model='gpt-4o',
-    temperature=0,
-    max_tokens=200
-)
+llm = ChatOpenAI(model="gpt-4o", temperature=0, max_tokens=200)
 
 template = "Calculate the square root of the factorial of 12 and display it with 4 decimal points."
 prompt_template = PromptTemplate(template=template)
-agent_executor = create_python_agent(
-    llm=llm,
-    tool=PythonREPLTool(),
-    verbose=True
-)
+agent_executor = create_python_agent(llm=llm, tool=PythonREPLTool(), verbose=True)
 # response = agent_executor.invoke(template)
 # print(response['output'])
 
 llm_chain = prompt_template | agent_executor
 
 response = llm_chain.invoke({})
-print(response['output'])
-
-
+print(response["output"])
