@@ -19,20 +19,19 @@ index.upsert(zip(ids, vectors), namespace="np1")
 # print(index.describe_index_stats())
 
 # fetch 'x' from default namespace - it should not work
-results = index.fetch(ids=['x'])
+results = index.fetch(ids=["x"])
 print(results)
 
 # fetch 'x' from np1 namespace
-results = index.fetch(ids=['x'], namespace='np1')
+results = index.fetch(ids=["x"], namespace="np1")
 print(results)
 
 # delete a vector from a namespace
 # index.delete(ids=['x'])
 # print(index.describe_index_stats())
 
-index.delete(ids=['x'], namespace='np1')
+index.delete(ids=["x"], namespace="np1")
 print(index.describe_index_stats())
 
-index.delete(delete_all=True, namespace='np1') #This will also delete the namespace
+index.delete(delete_all=True, namespace="np1")  # This will also delete the namespace
 print(index.describe_index_stats())
-
