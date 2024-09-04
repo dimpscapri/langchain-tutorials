@@ -13,6 +13,7 @@ from colorama import Fore, Back, Style, init
 import tiktoken
 from langchain_openai import OpenAIEmbeddings
 
+
 load_dotenv()
 init()  # initialzing colorama
 
@@ -26,17 +27,19 @@ text_splitter = RecursiveCharacterTextSplitter(
 chunks = text_splitter.create_documents([churchill_speech])
 print(f"{Fore.CYAN}Now you have {Fore.RED}{len(chunks)}{Fore.CYAN} chunks!")
 
+
 def print_embedding_cost(chunks):
-    enc = tiktoken.encoding_for_model('text-embedding-3-small')
+    enc = tiktoken.encoding_for_model("text-embedding-3-small")
     total_tokens = 0
     for chunk in chunks:
-        total_tokens+= len(enc.encode(chunk.page_content))
-    print(f'{Fore.GREEN}Total Tokens: {Fore.RED}{total_tokens}')
-    print(f'{Fore.GREEN}Embedding Cost:{Fore.RED} {total_tokens/1000 * 0.0004:.6f}')
+        total_tokens += len(enc.encode(chunk.page_content))
+    print(f"{Fore.GREEN}Total Tokens: {Fore.RED}{total_tokens}")
+    print(f"{Fore.GREEN}Embedding Cost:{Fore.RED} {total_tokens/1000 * 0.0004:.6f}")
+
 
 # print_embedding_cost(chunks)
 
-embeddings = OpenAIEmbeddings(model='text-embedding-3-large')
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small", dimensions=1536)
 # vector = embeddings.embed_query('abc')
-vector = embeddings.embed_query(chunks[0].page_content)
-print(vector)
+# vector = embeddings.embed_query(chunks[0].page_content)
+# print(vector)
